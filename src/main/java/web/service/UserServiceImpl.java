@@ -2,47 +2,52 @@ package web.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import web.dao.UserDao;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
+import web.repositories.UsersRepository;
 
 import java.util.List;
 
 
-@Component
+@Service
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
-    private final UserDao dao;
+    private final UsersRepository repository;
 
     @Autowired
-    public UserServiceImpl(UserDao dao) {
-        this.dao = dao;
+    public UserServiceImpl(UsersRepository repository) {
+        this.repository = repository;
     }
 
 
     @Override
     public List<User> listUsers() {
-
-        return dao.listUsers();
+        return repository.findAll();
     }
 
     @Override
     public User userById(Long id) {
-        return dao.userById(id);
+        return repository.findById(id).get();
     }
 
     @Override
+    @Transactional
     public void save(User user) {
-        dao.save(user);
+        repository.save(user);
     }
 
     @Override
+    @Transactional
     public void update(Long id, User upUser) {
-        dao.update(id, upUser);
+        upUser.setId(id);
+        repository.save(upUser);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        dao.delete(id);
+        repository.deleteById(id);
     }
 }
