@@ -1,10 +1,6 @@
 package web.model;
 
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-
 import javax.persistence.*;
 
 
@@ -16,16 +12,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Do you haven't name???")
     @Column(name = "name")
     private String name;
 
-    @Min(value = 0, message = "How your age might be less 0?")
     @Column(name = "age")
     private Integer age;
 
-    @NotEmpty(message = "We need your email, for spam")
-    @Email(message = "Are you kiddin us? This not email")
     @Column(name = "email")
     private String email;
 
