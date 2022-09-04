@@ -31,7 +31,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
-@EnableJpaRepositories
+@EnableJpaRepositories("web.repositories")
 @EnableWebMvc
 @ComponentScan("web")
 public class WebConfig implements WebMvcConfigurer {
@@ -40,6 +40,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     private final Environment env;
 
+    @Autowired
     public WebConfig(ApplicationContext applicationContext, Environment env) {
         this.applicationContext = applicationContext;
         this.env = env;
