@@ -11,7 +11,6 @@ import java.util.List;
 
 
 @Service
-@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
     private final UsersRepository repository;
@@ -23,11 +22,13 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional
     public List<User> listUsers() {
         return repository.findAll();
     }
 
     @Override
+    @Transactional
     public User userById(Long id) {
         return repository.findById(id).get();
     }

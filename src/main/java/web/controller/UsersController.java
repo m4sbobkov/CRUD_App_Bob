@@ -10,15 +10,16 @@ import web.service.UserService;
 import web.service.UserServiceImpl;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping()
 public class UsersController {
     private final UserService service;
+
     @Autowired
     public UsersController(UserService service) {
         this.service = service;
     }
 
-    @GetMapping("")
+    @GetMapping()
     public String showAllUsers(Model model) {
         model.addAttribute("users", service.listUsers());
         return "users";
@@ -32,7 +33,7 @@ public class UsersController {
     @PostMapping()
     public String addUser (@ModelAttribute("user") User user){
         service.save(user);
-        return "redirect:/users";
+        return "redirect:/";
     }
 
     @GetMapping("/{id}/edit")
@@ -41,15 +42,15 @@ public class UsersController {
         return "editUser";
     }
     @PatchMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id){
-        service.update(id, user);
-        return "redirect:/users";
+    public String updateUser(@ModelAttribute("user") User user){
+        service.update(user.getId(), user);
+        return "redirect:/";
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser (@PathVariable("id")Long id){
         service.delete(id);
-        return "redirect:/users";
+        return "redirect:/";
     }
 
 
