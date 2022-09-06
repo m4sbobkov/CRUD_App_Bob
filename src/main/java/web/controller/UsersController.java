@@ -10,7 +10,6 @@ import web.service.UserService;
 import web.service.UserServiceImpl;
 
 @Controller
-@RequestMapping()
 public class UsersController {
     private final UserService service;
 
@@ -19,7 +18,7 @@ public class UsersController {
         this.service = service;
     }
 
-    @GetMapping()
+    @GetMapping
     public String showAllUsers(Model model) {
         model.addAttribute("users", service.listUsers());
         return "users";
@@ -30,7 +29,7 @@ public class UsersController {
         return "addUser";
     }
 
-    @PostMapping()
+    @PostMapping
     public String addUser (@ModelAttribute("user") User user){
         service.save(user);
         return "redirect:/";
@@ -43,7 +42,7 @@ public class UsersController {
     }
     @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user") User user){
-        service.update(user.getId(), user);
+        service.save(user);
         return "redirect:/";
     }
 

@@ -22,13 +22,13 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional
+
     public List<User> listUsers() {
         return repository.findAll();
     }
 
     @Override
-    @Transactional
+
     public User userById(Long id) {
         return repository.findById(id).get();
     }
@@ -39,12 +39,6 @@ public class UserServiceImpl implements UserService {
         repository.save(user);
     }
 
-    @Override
-    @Transactional
-    public void update(Long id, User upUser) {
-        upUser.setId(id);
-        repository.save(upUser);
-    }
 
     @Override
     @Transactional
