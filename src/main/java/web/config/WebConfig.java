@@ -51,6 +51,7 @@ public class WebConfig implements WebMvcConfigurer {
         templateResolver.setApplicationContext(applicationContext);
         templateResolver.setPrefix("/WEB-INF/pages/");
         templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -67,6 +68,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
+        resolver.setCharacterEncoding("UTF-8");
         registry.viewResolver(resolver);
     }
 
@@ -91,6 +93,8 @@ public class WebConfig implements WebMvcConfigurer {
         Properties props=new Properties();
         props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        props.put("hibernate.connection.characterEncoding", env.getProperty("hibernate.connection.characterEncoding"));
+        props.put("hibernate.connection.CharSet", env.getProperty("hibernate.connection.CharSet"));
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
